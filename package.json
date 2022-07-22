@@ -1,0 +1,40 @@
+{
+  "name": "@wikoci/payloadjs",
+  "version": "0.0.1-beta-41",
+  "description": "Payload CMS SDK for use in javascript",
+  "main": "index.js",
+  "scripts": {
+    "permission:config": "node config.js",
+    "postinstall": "npm run permission:config",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "rollup -c",
+    "dev": "nodemon esm.js",
+    "deploy": "npm publish --access=public"
+  },
+  "keywords": [
+    "Payload CMS",
+    "sdk",
+    "paload-sdk-js"
+  ],
+  "author": "bitev.io <dev@bitev.io>",
+  "license": "MIT",
+  "dependencies": {
+    "clean-deep": "^3.4.0",
+    "consola": "^2.15.3",
+    "esm": "^3.2.25",
+    "fs": "0.0.1-security",
+    "js-cookie": "^3.0.1",
+    "lodash": "^4.17.21",
+    "node-fetch": "^2.6.7",
+    "qs": "^6.11.0",
+    "ufo": "^0.8.5"
+  },
+  "devDependencies": {
+    "@rollup/plugin-json": "^4.1.0",
+    "nodemon": "^2.0.19",
+    "rollup": "^2.77.0",
+    "rollup-plugin-commonjs": "^10.1.0",
+    "rollup-plugin-external-globals": "^0.6.1",
+    "rollup-plugin-node-resolve": "^5.2.0"
+  }
+}
