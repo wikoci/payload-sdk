@@ -4,7 +4,9 @@
 
 # Payload CMS SDK + Plugin 
 
-## Features
+
+
+## ✨ Features
 - Restful Method
 - Plugin Permission 
 
@@ -51,6 +53,16 @@ payload.find("slug",ID,data,options);
 ```js
 payload.find("slug",ID);
 ```
+### setToken()
+```js
+payload.setToken();
+```
+
+### clearToken()
+```js
+payload.clearToken();
+```
+
 ### raw() Comming soon....
 ```js
 payload.raw(pipeline);
@@ -65,7 +77,7 @@ payload.aggregate("slug",pipeline);
 
 ### Permission plugin
 
-This plugin active all feature : createdBy , updatedBy , and Permission utility.
+> This plugin active all feature : createdBy , updatedBy , and Permission utility.
 
 ** Notice: **
 
