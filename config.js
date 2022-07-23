@@ -1,4 +1,4 @@
-const fs = require('fs');
+import fs from 'fs';
 const path = "../../../plugins/";
 const file ="permission.config.js"
 fs.access(path, (error) => {
@@ -24,7 +24,7 @@ fs.access(path, (error) => {
     // *** Public Permission hidden in admin Panel
 
         module.exports = {
-        actualites: {
+        slug: {
             authActions: ["create", "readAny"],  // default permissions for Auth User :  create | readAny | readOwn | deleteAny | deleteOwn | updateOwn | updateAny
             publicActions:["readAny"] // readAny | createAny | deleteAny | updateAny
         },

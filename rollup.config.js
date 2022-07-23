@@ -3,10 +3,10 @@ import commonjs from "rollup-plugin-commonjs";
 import nodeResolve from "rollup-plugin-node-resolve";
 import externalGlobals from "rollup-plugin-external-globals";
 export default {
-  input: "index.js",
+  input: "./index.js",
   output: {
-    dir: "./dist/sdk",
-      format: "iife",
+    dir: "./dist/sdk/",
+      format: "umd",
     
     global: {
       consola: "consola",

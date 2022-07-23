@@ -8,7 +8,7 @@ async function start() {
     .catch((err) => {
       console.log(err);
     });
-  console.log(response.collections);
+  
 }
 
 start();

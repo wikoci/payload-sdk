@@ -1,21 +1,31 @@
 {
   "name": "@wikoci/payloadjs",
-  "version": "0.0.1-beta-41",
+  "version": "0.0.1-beta-84",
   "description": "Payload CMS SDK for use in javascript",
   "main": "index.js",
   "scripts": {
     "permission:config": "node config.js",
-    "postinstall": "npm run permission:config",
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "rollup -c",
-    "dev": "nodemon esm.js",
+    "dev": "NODE_ENV=test  nodemon ./plugins/permission.js",
     "deploy": "npm publish --access=public"
   },
   "keywords": [
     "Payload CMS",
     "sdk",
-    "paload-sdk-js"
+    "paload-sdk-js",
+    "MongoDB",
+    "Api",
+    "restfull",
+    "rest",
+    "plugin",
+    "javascript"
+
   ],
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:wikoci/payload-sdk.git"
+  },
   "author": "bitev.io <dev@bitev.io>",
   "license": "MIT",
   "dependencies": {

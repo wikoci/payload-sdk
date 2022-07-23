@@ -1,7 +1,52 @@
-import defaulPermissions from "./permission.config";
+
+function isBrowser() {
+    
+    try {
+      return  window? true :false
+    } catch (err) {
+        return false
+    }
+}
+
+function setConfigPermission(config = {
+    defaultPermission:{},
+})
+{
+    
+    if (isBrowser()) {
+        window.__configPermission__ = config;
+    } else {
+        global.__configPermission__ = config;
+    }
+}
+
+
+function getConfigPermission() {
+
+  
+
+    if (isBrowser()) {
+        if (!window.__configPermission__) setConfigPermission()
+        return window.__configPermission__; 
+    } else {
+         if (!global.__configPermission__) setConfigPermission();
+    return global.__configPermission__
+  }
+}
+
 
 const setPermission = (incomingConfig) => {
-  //console.log("Permission is loaded",defaulPermissions)
+const defaulPermissions = getConfigPermission().defaultPermissions || {
+  slug: {
+    auth: ["create", "readAny"], // default permissions for Auth User :  create | readAny | readOwn | deleteAny | deleteOwn | updateOwn | updateAny
+    public: ["readAny"], // readAny | createAny | deleteAny | updateAny,
+    readOnlyCreatedBy: true, // read
+    readOnlyUpdatedBy: true, // read
+  },
+};
+    
+
+  console.log("Permission is loaded",defaulPermissions)
   var initCollections = [];
   var useCollections = incomingConfig.collections.filter(
     (e) => e.auth && e.slug !== "users" && e.slug.match(/(users)/)
@@ -11,8 +56,6 @@ const setPermission = (incomingConfig) => {
   );
   // console.log("Use collections",useCollections)
   // collections.push()
-
-  console.log("Colle", useCollections);
 
   useCollections.map((collection) => {
     if (collection.slug.match(/(users)/)) {
@@ -41,7 +84,7 @@ const setPermission = (incomingConfig) => {
                 "deleteOwn",
                 "deleteAny",
               ],
-              defaultValue: defaulPermissions[col.slug]?.authActions || [],
+               defaultValue: defaulPermissions[col.slug]?.auth || [],
             };
           }),
         },
@@ -63,7 +106,9 @@ const setPermission = (incomingConfig) => {
         relationTo: by,
         hasMany: false,
         admin: {
-          readOnly: true,
+          readOnly: defaulPermissions[collection.slug]?.readOnlyCreatedBy
+            ? defaulPermissions[collection.slug].readOnlyCreatedBy
+            : true,
           position: "sidebar",
         },
       },
@@ -73,7 +118,9 @@ const setPermission = (incomingConfig) => {
         relationTo: by,
         hasMany: false,
         admin: {
-          readOnly: true,
+          readOnly: defaulPermissions[collection.slug]?.readOnlyUpdatedBy
+            ? defaulPermissions[collection.slug].readOnlyCreatedBy
+            : true,
           position: "sidebar",
         },
       },
@@ -103,7 +150,7 @@ const setPermission = (incomingConfig) => {
           }
         } else {
           let exist =
-            defaulPermissions[collection.slug].publicActions.filter(
+            defaulPermissions[collection.slug]?.public.filter(
               (e) => e == "readAny"
             ) || [];
           return exist.length ? true : false;
@@ -132,7 +179,7 @@ const setPermission = (incomingConfig) => {
           }
         } else {
           let exist =
-            defaulPermissions[collection.slug].publicActions.filter(
+            defaulPermissions[collection.slug]?.public.filter(
               (e) => e == "createAny"
             ) || [];
           return exist.length ? true : false;
@@ -165,7 +212,7 @@ const setPermission = (incomingConfig) => {
           }
         } else {
           let exist =
-            defaulPermissions[collection.slug].publicActions.filter(
+            defaulPermissions[collection.slug]?.public.filter(
               (e) => e == "updateAny"
             ) || [];
           return exist.length ? true : false;
@@ -192,7 +239,7 @@ const setPermission = (incomingConfig) => {
           }
         } else {
           let exist =
-            defaulPermissions[collection.slug].publicActions.filter(
+            defaulPermissions[collection.slug]?.public.filter(
               (e) => e == "deleteAny"
             ) || [];
           return exist.length ? true : false;
@@ -202,6 +249,8 @@ const setPermission = (incomingConfig) => {
     };
   });
 
+
+    
   const config = {
     ...incomingConfig,
   };
@@ -209,4 +258,7 @@ const setPermission = (incomingConfig) => {
   return config;
 };
 
-export { setPermission };
+module.exports = {
+    setPermission,
+    setConfigPermission
+};
